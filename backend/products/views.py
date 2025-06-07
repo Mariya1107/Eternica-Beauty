@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from django.db.models import Q
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 
@@ -13,14 +14,10 @@ class ProductViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
         
-        # Try to get category from URL path first
+        # Category filter (your existing code)
         category = self.kwargs.get('category')
-        
-        # If not found in URL, check query params (fallback)
         if not category:
             category = self.request.query_params.get('category')
-        
-        # Map short names to full category names if needed
         if category:
             category_map = {
                 'essential': 'Essential Oils',
@@ -29,6 +26,14 @@ class ProductViewSet(viewsets.ModelViewSet):
                 'massage': 'Massage Oils',
             }
             category_full = category_map.get(category.lower(), category)
-            
             queryset = queryset.filter(category__name__iexact=category_full)
+        
+        # New: Search filter (fix for your search problem)
+        search = self.request.query_params.get('search')
+        if search:
+            # Filter products where name or advantages contain the search term (case insensitive)
+            queryset = queryset.filter(
+                Q(name__icontains=search) | Q(advantages__icontains=search)
+            )
+        
         return queryset

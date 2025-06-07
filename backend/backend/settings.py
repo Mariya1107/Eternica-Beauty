@@ -74,7 +74,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.SearchFilter'],
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

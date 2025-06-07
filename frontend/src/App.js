@@ -37,6 +37,8 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
         <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/search" element={<SearchPage cartItems={cartItems} setCartItems={setCartItems} />} />
+
  <Route
   path="/gallery"
   element={<GalleryPage cartItems={cartItems} setCartItems={setCartItems} />}
