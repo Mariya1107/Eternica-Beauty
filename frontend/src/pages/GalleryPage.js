@@ -1,13 +1,12 @@
-// GalleryPage.js
 import React, { useState, useEffect } from 'react';
-import { Container, Typography } from '@mui/material';
-import ProductList from '../components/ProductList'; // Use ProductList
+import { Container, Typography, Box } from '@mui/material';
+import ProductList from '../components/ProductList';
 import { useNavigate } from 'react-router-dom';
 
 const GalleryPage = ({ cartItems, setCartItems }) => {
   const [products, setProducts] = useState([]);
   const backendUrl = 'http://127.0.0.1:8000';
-  const navigate = useNavigate();  // ✅ Needed for redirect
+  const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
     setCartItems(prev => {
@@ -20,7 +19,7 @@ const GalleryPage = ({ cartItems, setCartItems }) => {
       return [...prev, { ...product, quantity: 1 }];
     });
 
-    navigate('/cart'); // ✅ Redirect to cart after adding
+    navigate('/cart');
   };
 
   useEffect(() => {
@@ -31,12 +30,14 @@ const GalleryPage = ({ cartItems, setCartItems }) => {
   }, []);
 
   return (
-    <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-    
-      </Typography>
-      <ProductList products={products} onAddToCart={handleAddToCart} />
-    </Container>
+    <Box sx={{ paddingTop: '110px', paddingBottom: '40px' }}>
+      <Container sx={{ py: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          All Products
+        </Typography>
+        <ProductList products={products} onAddToCart={handleAddToCart} />
+      </Container>
+    </Box>
   );
 };
 

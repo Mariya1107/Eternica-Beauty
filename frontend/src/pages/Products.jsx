@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
 import ProductList from '../components/ProductList';
-import ProductGrid from '../components/ProductGrid';
 
 const formatCategoryForAPI = (cat) => {
   return cat
@@ -29,7 +28,7 @@ const Products = ({ cartItems, setCartItems }) => {
       return [...prev, { ...product, quantity: 1 }];
     });
 
-    navigate('/cart');  // Navigate to cart page immediately after adding
+    navigate('/cart'); // Navigate to cart page immediately after adding
   };
 
   useEffect(() => {
@@ -43,12 +42,14 @@ const Products = ({ cartItems, setCartItems }) => {
   }, [category]);
 
   return (
-    <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        {category.charAt(0).toUpperCase() + category.slice(1)} Oils
-      </Typography>
-      <ProductList products={products} onAddToCart={handleAddToCart} />
-    </Container>
+    <Box sx={{ paddingTop: '110px', paddingBottom: '40px' }}>
+      <Container sx={{ py: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          {category.charAt(0).toUpperCase() + category.slice(1)} Oils
+        </Typography>
+        <ProductList products={products} onAddToCart={handleAddToCart} />
+      </Container>
+    </Box>
   );
 };
 
