@@ -1,6 +1,5 @@
-// Header.js
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Button, InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -9,6 +8,12 @@ import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 const Header = () => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Clear search input on any route change
+    setSearch('');
+  }, [location.pathname]);  // runs on every pathname change
 
   const handleSearch = () => {
     if (search.trim()) {
