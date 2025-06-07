@@ -127,8 +127,8 @@ const ProductDetail = ({ onAddToCart }) => {
                   px: 5,
                   py: 1.25,
                   fontWeight: '700',
-                  backgroundColor: '#4a148c',
-                  '&:hover': { backgroundColor: '#2a0057' },
+                  backgroundColor: '#6f1904',
+                  '&:hover': { backgroundColor: '#4d1202' },
                   borderRadius: 2,
                 }}
               >

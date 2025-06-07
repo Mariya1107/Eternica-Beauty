@@ -34,9 +34,9 @@ const Home = () => {
           variant="h3"
           component="h1"
           gutterBottom
-          sx={{ fontFamily: "'Yeseva One', serif", color: '#4a148c' }}
+          sx={{ fontFamily: "'Yeseva One', serif", color: '#6f1904' }} // ← updated color
         >
-           Eternica Beauty
+          Eternica Beauty
         </Typography>
         <Typography variant="body1" sx={{ fontSize: '1.1rem' }}>
           Discover our premium collection of essential oils, carrier oils, and more.

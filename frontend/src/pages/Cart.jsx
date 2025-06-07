@@ -103,7 +103,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                           >
                             <IconButton
                               size="small"
-                              color="primary"
+                              sx={{ color: '#6f1904' }}  // changed icon color here
                               onClick={() => handleDecrement(item.id)}
                             >
                               <RemoveIcon />
@@ -111,7 +111,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                             <Typography>{item.quantity}</Typography>
                             <IconButton
                               size="small"
-                              color="primary"
+                              sx={{ color: '#6f1904' }}  // changed icon color here
                               onClick={() => handleIncrement(item.id)}
                             >
                               <AddIcon />
@@ -159,8 +159,8 @@ const Cart = ({ cartItems, setCartItems }) => {
                 variant="contained"
                 fullWidth
                 sx={{
-                  backgroundColor: '#4a148c',
-                  '&:hover': { backgroundColor: '#38006b' },
+                  backgroundColor: '#6f1904', // changed color here too
+                  '&:hover': { backgroundColor: '#4e1203' }, // darker hover
                   mt: 3,
                 }}
                 onClick={() => alert('Checkout feature coming soon!')}

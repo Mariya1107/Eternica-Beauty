@@ -53,15 +53,16 @@ const ProductCard = ({ product, onAddToCart }) => {
         <Stack direction="column" spacing={1}>
           <Button
             variant="outlined"
-            color="primary"
-            onClick={handleMoreDetails}
             sx={{
+              color: '#6f1904',           // text color changed here
+              borderColor: '#6f1904',     // border color changed here
               '&:hover': {
-                backgroundColor: '#2a0057', // darker purple hover for outlined
+                backgroundColor: '#6f1904',
                 color: 'white',
-                borderColor: '#2a0057',
+                borderColor: '#6f1904',
               },
             }}
+            onClick={handleMoreDetails}
           >
             More Details
           </Button>
@@ -69,9 +70,9 @@ const ProductCard = ({ product, onAddToCart }) => {
           <Button
             variant="contained"
             sx={{
-              backgroundColor: '#4a148c',
+              backgroundColor: '#6f1904',
               '&:hover': {
-                backgroundColor: '#2a0057', // darker purple hover for contained
+                backgroundColor: '#4e1203',
               },
             }}
             onClick={() => onAddToCart(product)}

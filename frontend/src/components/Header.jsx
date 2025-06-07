@@ -24,11 +24,12 @@ const TopHeader = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: '#311b92',
+        backgroundColor: '#6f1904',
         top: 0,
         zIndex: 1400,
         height: 30,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        paddingLeft: 2,
       }}
       elevation={0}
     >
@@ -37,11 +38,13 @@ const TopHeader = () => {
         sx={{
           minHeight: 30,
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           gap: 4,
           color: 'white',
           fontSize: '0.85rem',
           fontFamily: "'Roboto', sans-serif",
+          paddingLeft: 0,
+          paddingRight: 0,
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -139,13 +142,16 @@ const Header = () => {
     }
   }, [location.pathname]);
 
+  const secondHeaderBg = 'rgba(111, 25, 4, 0.4)'; // second header bg color
+  const firstHeaderBgLighter = '#8f2e08'; // lighter shade of first header (#6f1904)
+
   const hoverStyle = {
     fontFamily: "'Yeseva One', serif",
     fontSize: '1.1rem',
     lineHeight: 1.2,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: secondHeaderBg,
     },
   };
 
@@ -156,7 +162,7 @@ const Header = () => {
     justifyContent: 'center',
     fontSize: '1.3rem',
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: secondHeaderBg,
     },
   };
 
@@ -166,7 +172,8 @@ const Header = () => {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: '#4a148c',
+          backgroundColor: secondHeaderBg,
+          backdropFilter: 'blur(5px)',
           zIndex: 1300,
           top: 30,
         }}
@@ -222,7 +229,7 @@ const Header = () => {
                   MenuListProps={{ onMouseLeave: handleMenuClose }}
                   PaperProps={{
                     sx: {
-                      bgcolor: '#7b1fa2',
+                      bgcolor: firstHeaderBgLighter,
                       color: 'white',
                       minWidth: 180,
                       mt: '10px',
@@ -232,7 +239,7 @@ const Header = () => {
                         fontFamily: "'Yeseva One', serif",
                         fontSize: '1.1rem',
                         '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          backgroundColor: secondHeaderBg,
                         },
                       },
                     },

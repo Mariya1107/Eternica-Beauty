@@ -7,10 +7,10 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4a148c', // your purple shade
+      main: '#6f1904', // changed from purple to dark reddish brown
     },
     secondary: {
-      main: '#38006b', // your darker purple hover color
+      main: '#4e1203', // darker shade for hover effects
     },
   },
 });

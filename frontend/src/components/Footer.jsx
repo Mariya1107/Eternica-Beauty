@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 const Footer = () => {
   return (
-    <Box sx={{ backgroundColor: '#4a148c', color: 'white', p: 3, mt: 'auto' }}>
+    <Box sx={{ backgroundColor: '#6f1904', color: 'white', p: 3, mt: 'auto' }}>
       <Typography variant="h6" align="center" gutterBottom>
         Eternica Beauty
       </Typography>
