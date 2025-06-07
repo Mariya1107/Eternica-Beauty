@@ -1,4 +1,4 @@
-from rest_framework import viewsets, filters
+from rest_framework import viewsets
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 
@@ -9,14 +9,18 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [filters.SearchFilter]  # 🔍 Add this
-    search_fields = ['name', 'description']   # 🔍 Enable search by name & description
 
     def get_queryset(self):
         queryset = super().get_queryset()
         
-        # Category filter
-        category = self.kwargs.get('category') or self.request.query_params.get('category')
+        # Try to get category from URL path first
+        category = self.kwargs.get('category')
+        
+        # If not found in URL, check query params (fallback)
+        if not category:
+            category = self.request.query_params.get('category')
+        
+        # Map short names to full category names if needed
         if category:
             category_map = {
                 'essential': 'Essential Oils',
@@ -25,6 +29,6 @@ class ProductViewSet(viewsets.ModelViewSet):
                 'massage': 'Massage Oils',
             }
             category_full = category_map.get(category.lower(), category)
+            
             queryset = queryset.filter(category__name__iexact=category_full)
-
         return queryset
