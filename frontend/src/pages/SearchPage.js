@@ -35,7 +35,9 @@ const SearchPage = ({ cartItems, setCartItems }) => {
   };
 
   return (
-    <Container sx={{ py: 4 }}>
+    <Container sx={{ pt: '110px', pb: 4 }}>
+      {/* Added paddingTop of 110px to push content below the header */}
+
       <Typography variant="h5" gutterBottom>
         Search results for: "{searchTerm}"
       </Typography>

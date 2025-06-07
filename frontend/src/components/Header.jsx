@@ -11,6 +11,7 @@ import {
   Menu,
   MenuItem,
   CircularProgress,
+  Divider,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -142,8 +143,8 @@ const Header = () => {
     }
   }, [location.pathname]);
 
-  const secondHeaderBg = 'rgba(111, 25, 4, 0.4)'; // second header bg color
-  const firstHeaderBgLighter = '#8f2e08'; // lighter shade of first header (#6f1904)
+  const secondHeaderBg = 'rgba(111, 25, 4, 0.4)';
+  const firstHeaderBgLighter = '#8f2e08';
 
   const hoverStyle = {
     fontFamily: "'Yeseva One', serif",
@@ -245,6 +246,14 @@ const Header = () => {
                     },
                   }}
                 >
+                  <MenuItem
+                    component={Link}
+                    to={`/products/${key}`}
+                    onClick={handleMenuClose}
+                  >
+                    View All {label}
+                  </MenuItem>
+                  <Divider sx={{ my: 0.5, bgcolor: 'white' }} />
                   {loading && currentCategory === key ? (
                     <MenuItem>
                       <CircularProgress size={24} sx={{ color: 'white' }} />
