@@ -20,50 +20,48 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 
-const TopHeader = () => {
-  return (
-    <AppBar
-      position="fixed"
+const TopHeader = () => (
+  <AppBar
+    position="fixed"
+    sx={{
+      backgroundColor: '#6f1904',
+      top: 0,
+      zIndex: 1400,
+      height: 30,
+      justifyContent: 'flex-start',
+      paddingLeft: 2,
+    }}
+    elevation={0}
+  >
+    <Toolbar
+      variant="dense"
       sx={{
-        backgroundColor: '#6f1904',
-        top: 0,
-        zIndex: 1400,
-        height: 30,
+        minHeight: 30,
+        display: 'flex',
         justifyContent: 'flex-start',
-        paddingLeft: 2,
+        gap: 4,
+        color: 'white',
+        fontSize: '0.85rem',
+        fontFamily: "'Roboto', sans-serif",
+        paddingLeft: 0,
+        paddingRight: 0,
       }}
-      elevation={0}
     >
-      <Toolbar
-        variant="dense"
-        sx={{
-          minHeight: 30,
-          display: 'flex',
-          justifyContent: 'flex-start',
-          gap: 4,
-          color: 'white',
-          fontSize: '0.85rem',
-          fontFamily: "'Roboto', sans-serif",
-          paddingLeft: 0,
-          paddingRight: 0,
-        }}
-      >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <EmailIcon sx={{ fontSize: 18 }} />
-          <Typography>contact@eternicabeauty.com</Typography>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <PhoneIcon sx={{ fontSize: 18 }} />
-          <Typography>+91 9876543210</Typography>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <PhoneIcon sx={{ fontSize: 18 }} />
-          <Typography>+91 9123456780</Typography>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-};
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <EmailIcon sx={{ fontSize: 18 }} />
+        <Typography>contact@eternicabeauty.com</Typography>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <PhoneIcon sx={{ fontSize: 18 }} />
+        <Typography>+91 9876543210</Typography>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <PhoneIcon sx={{ fontSize: 18 }} />
+        <Typography>+91 9123456780</Typography>
+      </Box>
+    </Toolbar>
+  </AppBar>
+);
 
 const Header = () => {
   const [search, setSearch] = useState('');
@@ -74,15 +72,12 @@ const Header = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
   const backendUrl = 'http://127.0.0.1:8000';
 
   const fetchCategoryItems = async (categoryKey) => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `${backendUrl}/api/products/?category=${encodeURIComponent(categoryKey)}`
-      );
+      const response = await fetch(`${backendUrl}/api/products/?category=${encodeURIComponent(categoryKey)}`);
       const data = await response.json();
       setCategoriesData((prev) => ({ ...prev, [categoryKey]: data }));
     } catch (error) {
@@ -137,7 +132,6 @@ const Header = () => {
       '/products/fragrance',
       '/products/massage',
     ];
-
     if (pathsToReset.includes(location.pathname)) {
       setSearch('');
     }
@@ -219,7 +213,6 @@ const Header = () => {
                   {label}
                   <ArrowDropDownIcon sx={{ fontSize: '1.3rem', ml: 0.3 }} />
                 </Button>
-
                 <Menu
                   id="category-menu"
                   anchorEl={menuAnchorEl}
@@ -284,11 +277,12 @@ const Header = () => {
               <ShoppingCartIcon fontSize="large" />
             </IconButton>
 
+            {/* Search + Track Order Section */}
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'flex-end',
+                alignItems: 'center',
                 gap: 1,
                 minWidth: 180,
               }}
@@ -325,14 +319,16 @@ const Header = () => {
                   fontSize: '1rem',
                   textTransform: 'none',
                   px: 2,
-                  py: '6px',
-                  borderRadius: '20px',
+                  py: '4px',
+                  borderRadius: '8px',
                   backgroundColor: 'black',
+                  minHeight: '28px',
+                  width: 'auto',
+                  alignSelf: 'center',
                   '&:hover': {
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                   },
                   whiteSpace: 'nowrap',
-                  width: '100%',
                 }}
               >
                 Track Order
