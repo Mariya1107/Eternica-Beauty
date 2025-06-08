@@ -1,4 +1,3 @@
-// Header.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -20,6 +19,7 @@ import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const TopHeader = () => (
   <AppBar
@@ -65,6 +65,10 @@ const Header = () => {
   const [currentCategory, setCurrentCategory] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // For account dropdown menu
+  const [accountAnchorEl, setAccountAnchorEl] = useState(null);
+  const accountMenuOpen = Boolean(accountAnchorEl);
+
   const navigate = useNavigate();
   const location = useLocation();
   const backendUrl = 'http://127.0.0.1:8000';
@@ -89,8 +93,9 @@ const Header = () => {
   };
 
   const handleMenuToggle = (event, categoryKey) => {
-    if (menuAnchorEl && currentCategory === categoryKey) {
-      handleMenuClose();
+    if (currentCategory === categoryKey) {
+      setMenuAnchorEl(null);
+      setCurrentCategory(null);
     } else {
       setMenuAnchorEl(event.currentTarget);
       setCurrentCategory(categoryKey);
@@ -103,6 +108,20 @@ const Header = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
     setCurrentCategory(null);
+  };
+
+  // Account menu handlers
+  const handleAccountClick = (event) => {
+    setAccountAnchorEl(event.currentTarget);
+  };
+
+  const handleAccountClose = () => {
+    setAccountAnchorEl(null);
+  };
+
+  const handleAccountMenuItemClick = (path) => {
+    setAccountAnchorEl(null);
+    navigate(path);
   };
 
   const handleSearch = () => {
@@ -141,7 +160,8 @@ const Header = () => {
           top: 30,
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
+          {/* Logo */}
           <Typography
             variant="h4"
             sx={{
@@ -176,32 +196,31 @@ const Header = () => {
             </Link>
           </Typography>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {/* Navigation & Controls */}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 2,
+              mt: { xs: 2, sm: 0 },
+            }}
+          >
             {categories.map(({ key, label }) => (
               <Box key={key}>
                 <Button
                   color="inherit"
-                  aria-controls={currentCategory === key ? 'category-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={currentCategory === key ? 'true' : undefined}
                   onClick={(e) => handleMenuToggle(e, key)}
                   endIcon={<ArrowDropDownIcon sx={{ fontSize: 20 }} />}
                   sx={{
                     textTransform: 'none',
                     fontFamily: "'Yeseva One', serif",
                     fontSize: '1.1rem',
-                    fontWeight: location.pathname.includes(`/products/${key}`)
-                      ? 'bold'
-                      : 'normal',
-                    borderBottom: location.pathname.includes(`/products/${key}`)
-                      ? '2px solid white'
-                      : 'none',
                   }}
                 >
                   {label}
                 </Button>
                 <Menu
-                  id="category-menu"
                   anchorEl={menuAnchorEl}
                   open={currentCategory === key}
                   onClose={handleMenuClose}
@@ -221,7 +240,7 @@ const Header = () => {
                   ) : categoriesData[key]?.length ? (
                     categoriesData[key].map((item) => (
                       <MenuItem
-                        key={`${key}-${item.id}`}
+                        key={item.id}
                         component={Link}
                         to={`/products/${key}?name=${encodeURIComponent(item.name)}`}
                         onClick={handleMenuClose}
@@ -244,7 +263,16 @@ const Header = () => {
               <ShoppingCartIcon sx={{ fontSize: 24 }} />
             </IconButton>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+            {/* Search + Track Order + Account */}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 1,
+              }}
+            >
+              {/* Search */}
               <Box
                 sx={{
                   display: 'flex',
@@ -266,29 +294,89 @@ const Header = () => {
                 </IconButton>
               </Box>
 
-              <Button
-                color="inherit"
-                component={Link}
-                to="/track-order"
+              {/* Track Order and Account Icon */}
+              <Box
                 sx={{
-                  fontFamily: "'Yeseva One', serif",
-                  fontSize: '0.9rem',
-                  textTransform: 'none',
-                  px: 2,
-                  py: '4px',
-                  borderRadius: '8px',
-                  backgroundColor: 'black',
-                  minHeight: '28px',
-                  width: 'auto',
-                  alignSelf: 'center',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  },
-                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  height: '100%',
                 }}
               >
-                Track Order
-              </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/track-order"
+                  sx={{
+                    fontFamily: "'Yeseva One', serif",
+                    fontSize: '0.9rem',
+                    textTransform: 'none',
+                    px: 2,
+                    py: '4px',
+                    borderRadius: '8px',
+                    backgroundColor: 'black',
+                    minHeight: '28px',
+                    width: 'auto',
+                    whiteSpace: 'nowrap',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  Track Order
+                </Button>
+
+                {/* Account Icon Button with Dropdown */}
+                <IconButton
+                  aria-controls={accountMenuOpen ? 'account-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={accountMenuOpen ? 'true' : undefined}
+                  onClick={handleAccountClick}
+                  sx={{
+                    color: 'black',
+                    ml: 1,
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                  }}
+                >
+                  <AccountCircleIcon sx={{ fontSize: 28 }} />
+                </IconButton>
+
+                <Menu
+                  id="account-menu"
+                  anchorEl={accountAnchorEl}
+                  open={accountMenuOpen}
+                  onClose={handleAccountClose}
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  PaperProps={{ sx: { bgcolor: '#8f2e08', color: 'white', minWidth: 140 } }}
+                  MenuListProps={{ onMouseLeave: handleAccountClose }}
+                >
+                  <MenuItem
+                    onClick={() => handleAccountMenuItemClick('/user')}
+                    sx={{
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      },
+                    }}
+                  >
+                    User
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleAccountMenuItemClick('/admin')}
+                    sx={{
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      },
+                    }}
+                  >
+                    Admin
+                  </MenuItem>
+                </Menu>
+              </Box>
             </Box>
           </Box>
         </Toolbar>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
-
+import User from './pages/User';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Products from './pages/Products';
@@ -10,7 +10,7 @@ import Cart from './pages/Cart';
 import Home from './pages/Home';
 import SearchPage from './pages/SearchPage';
 import GalleryPage from './pages/GalleryPage';
-
+import AdminPage from './pages/AdminPage';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
@@ -39,10 +39,12 @@ function App() {
           path="/products/:category"
           element={<Products cartItems={cartItems} setCartItems={setCartItems} />}
         />
+        <Route path="/admin" element={<AdminPage />} />
         <Route
           path="/product/:id"
           element={<ProductDetail onAddToCart={handleAddToCart} />}
         />
+        <Route path="/user" element={<User />} />
         <Route
           path="/cart"
           element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
