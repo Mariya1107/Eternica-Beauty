@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Container, Typography, Box } from '@mui/material';
 import ProductList from '../components/ProductList';
 
@@ -13,6 +13,7 @@ const formatCategoryForAPI = (cat) => {
 
 const Products = ({ cartItems, setCartItems }) => {
   const { category } = useParams();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const backendUrl = 'http://127.0.0.1:8000';
   const navigate = useNavigate();
@@ -28,18 +29,36 @@ const Products = ({ cartItems, setCartItems }) => {
       return [...prev, { ...product, quantity: 1 }];
     });
 
-    navigate('/cart'); // Navigate to cart page immediately after adding
+    navigate('/cart');
   };
 
   useEffect(() => {
     const formattedCategory = formatCategoryForAPI(category);
     const encodedCategory = encodeURIComponent(formattedCategory);
 
-    fetch(`${backendUrl}/api/products/?category=${encodedCategory}`)
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error('Error fetching products:', err));
-  }, [category]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/api/products/?category=${encodedCategory}`);
+        const data = await response.json();
+
+        const query = new URLSearchParams(location.search);
+        const nameQuery = query.get('name');
+
+        if (nameQuery) {
+          const filtered = data.filter(item =>
+            item.name.toLowerCase() === nameQuery.toLowerCase()
+          );
+          setProducts(filtered);
+        } else {
+          setProducts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchData();
+  }, [category, location.search]);
 
   return (
     <Box sx={{ paddingTop: '110px', paddingBottom: '40px' }}>

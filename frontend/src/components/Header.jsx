@@ -1,3 +1,4 @@
+// Header.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -43,21 +44,15 @@ const TopHeader = () => (
         color: 'white',
         fontSize: '0.85rem',
         fontFamily: "'Roboto', sans-serif",
-        paddingLeft: 0,
-        paddingRight: 0,
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-        <EmailIcon sx={{ fontSize: 18 }} />
+        <EmailIcon sx={{ fontSize: 16 }} />
         <Typography>contact@eternicabeauty.com</Typography>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-        <PhoneIcon sx={{ fontSize: 18 }} />
+        <PhoneIcon sx={{ fontSize: 16 }} />
         <Typography>+91 9876543210</Typography>
-      </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-        <PhoneIcon sx={{ fontSize: 18 }} />
-        <Typography>+91 9123456780</Typography>
       </Box>
     </Toolbar>
   </AppBar>
@@ -74,19 +69,6 @@ const Header = () => {
   const location = useLocation();
   const backendUrl = 'http://127.0.0.1:8000';
 
-  const fetchCategoryItems = async (categoryKey) => {
-    setLoading(true);
-    try {
-      const response = await fetch(`${backendUrl}/api/products/?category=${encodeURIComponent(categoryKey)}`);
-      const data = await response.json();
-      setCategoriesData((prev) => ({ ...prev, [categoryKey]: data }));
-    } catch (error) {
-      console.error('Error fetching category items:', error);
-      setCategoriesData((prev) => ({ ...prev, [categoryKey]: [] }));
-    }
-    setLoading(false);
-  };
-
   const categories = [
     { key: 'essential', label: 'Essential Oils' },
     { key: 'carrier', label: 'Carrier Oils' },
@@ -94,10 +76,21 @@ const Header = () => {
     { key: 'massage', label: 'Massage Oils' },
   ];
 
+  const fetchCategoryItems = async (categoryKey) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${backendUrl}/api/products/?category=${categoryKey}`);
+      const data = await res.json();
+      setCategoriesData((prev) => ({ ...prev, [categoryKey]: data }));
+    } catch (err) {
+      console.error('Fetch error:', err);
+    }
+    setLoading(false);
+  };
+
   const handleMenuToggle = (event, categoryKey) => {
-    if (currentCategory === categoryKey) {
-      setMenuAnchorEl(null);
-      setCurrentCategory(null);
+    if (menuAnchorEl && currentCategory === categoryKey) {
+      handleMenuClose();
     } else {
       setMenuAnchorEl(event.currentTarget);
       setCurrentCategory(categoryKey);
@@ -119,47 +112,22 @@ const Header = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+    if (e.key === 'Enter') handleSearch();
   };
 
   useEffect(() => {
-    const pathsToReset = [
-      '/',
-      '/products/essential',
-      '/products/carrier',
-      '/products/fragrance',
-      '/products/massage',
-    ];
-    if (pathsToReset.includes(location.pathname)) {
+    if (
+      [
+        '/',
+        '/products/essential',
+        '/products/carrier',
+        '/products/fragrance',
+        '/products/massage',
+      ].includes(location.pathname)
+    ) {
       setSearch('');
     }
   }, [location.pathname]);
-
-  const secondHeaderBg = 'rgba(111, 25, 4, 0.4)';
-  const firstHeaderBgLighter = '#8f2e08';
-
-  const hoverStyle = {
-    fontFamily: "'Yeseva One', serif",
-    fontSize: '1.1rem',
-    lineHeight: 1.2,
-    textTransform: 'none',
-    '&:hover': {
-      backgroundColor: secondHeaderBg,
-    },
-  };
-
-  const iconButtonStyle = {
-    color: 'inherit',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '1.3rem',
-    '&:hover': {
-      backgroundColor: secondHeaderBg,
-    },
-  };
 
   return (
     <>
@@ -167,51 +135,70 @@ const Header = () => {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: secondHeaderBg,
+          backgroundColor: 'rgba(111, 25, 4, 0.4)',
           backdropFilter: 'blur(5px)',
           zIndex: 1300,
           top: 30,
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between', flexWrap: 'nowrap' }}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography
             variant="h4"
-            component="div"
             sx={{
               fontFamily: "'Yeseva One', serif",
               lineHeight: 1,
               userSelect: 'none',
+              textAlign: 'center',
+              display: 'inline-block',
             }}
           >
-            <Link
-              to="/"
-              style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                whiteSpace: 'pre-line',
-                display: 'inline-block',
-              }}
-            >
-              Eternica{'\n'}Beauty
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Box
+                sx={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  letterSpacing: 1,
+                }}
+              >
+                Eternica
+              </Box>
+              <Box
+                sx={{
+                  fontSize: '1.8rem',
+                  mt: '-0.4rem',
+                  mx: 'auto',
+                  width: 'max-content',
+                  letterSpacing: 1,
+                }}
+              >
+                Beauty
+              </Box>
             </Link>
           </Typography>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             {categories.map(({ key, label }) => (
-              <Box key={key} sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box key={key}>
                 <Button
                   color="inherit"
+                  aria-controls={currentCategory === key ? 'category-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={currentCategory === key ? 'true' : undefined}
                   onClick={(e) => handleMenuToggle(e, key)}
+                  endIcon={<ArrowDropDownIcon sx={{ fontSize: 20 }} />}
                   sx={{
-                    ...hoverStyle,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 0.3,
-                    paddingY: '3px',
+                    textTransform: 'none',
+                    fontFamily: "'Yeseva One', serif",
+                    fontSize: '1.1rem',
+                    fontWeight: location.pathname.includes(`/products/${key}`)
+                      ? 'bold'
+                      : 'normal',
+                    borderBottom: location.pathname.includes(`/products/${key}`)
+                      ? '2px solid white'
+                      : 'none',
                   }}
                 >
                   {label}
-                  <ArrowDropDownIcon sx={{ fontSize: '1.3rem', ml: 0.3 }} />
                 </Button>
                 <Menu
                   id="category-menu"
@@ -220,43 +207,23 @@ const Header = () => {
                   onClose={handleMenuClose}
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                   transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                  PaperProps={{ sx: { bgcolor: '#8f2e08', color: 'white' } }}
                   MenuListProps={{ onMouseLeave: handleMenuClose }}
-                  PaperProps={{
-                    sx: {
-                      bgcolor: firstHeaderBgLighter,
-                      color: 'white',
-                      minWidth: 180,
-                      mt: '10px',
-                      position: 'fixed',
-                      zIndex: 2000,
-                      '& .MuiMenuItem-root': {
-                        fontFamily: "'Yeseva One', serif",
-                        fontSize: '1.1rem',
-                        '&:hover': {
-                          backgroundColor: secondHeaderBg,
-                        },
-                      },
-                    },
-                  }}
                 >
-                  <MenuItem
-                    component={Link}
-                    to={`/products/${key}`}
-                    onClick={handleMenuClose}
-                  >
+                  <MenuItem component={Link} to={`/products/${key}`} onClick={handleMenuClose}>
                     View All {label}
                   </MenuItem>
-                  <Divider sx={{ my: 0.5, bgcolor: 'white' }} />
-                  {loading && currentCategory === key ? (
+                  <Divider sx={{ bgcolor: 'white' }} />
+                  {loading ? (
                     <MenuItem>
-                      <CircularProgress size={24} sx={{ color: 'white' }} />
+                      <CircularProgress size={20} sx={{ color: 'white' }} />
                     </MenuItem>
-                  ) : categoriesData[key] && categoriesData[key].length > 0 ? (
+                  ) : categoriesData[key]?.length ? (
                     categoriesData[key].map((item) => (
                       <MenuItem
-                        key={item.id}
+                        key={`${key}-${item.id}`}
                         component={Link}
-                        to={`/product/${item.id}`}
+                        to={`/products/${key}?name=${encodeURIComponent(item.name)}`}
                         onClick={handleMenuClose}
                       >
                         {item.name}
@@ -269,33 +236,22 @@ const Header = () => {
               </Box>
             ))}
 
-            <IconButton component={Link} to="/gallery" aria-label="Gallery" sx={iconButtonStyle}>
-              <PhotoLibraryIcon fontSize="large" />
+            <IconButton component={Link} to="/gallery" color="inherit" sx={{ fontSize: 24 }}>
+              <PhotoLibraryIcon sx={{ fontSize: 24 }} />
             </IconButton>
 
-            <IconButton component={Link} to="/cart" aria-label="Cart" sx={iconButtonStyle}>
-              <ShoppingCartIcon fontSize="large" />
+            <IconButton component={Link} to="/cart" color="inherit" sx={{ fontSize: 24 }}>
+              <ShoppingCartIcon sx={{ fontSize: 24 }} />
             </IconButton>
 
-            {/* Search + Track Order Section */}
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1,
-                minWidth: 180,
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
               <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 1,
-                  bgcolor: 'white',
+                  backgroundColor: 'white',
                   borderRadius: 1,
                   px: 1,
-                  width: '100%',
                 }}
               >
                 <InputBase
@@ -303,9 +259,9 @@ const Header = () => {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  sx={{ color: 'black', width: '100%' }}
+                  sx={{ color: 'black', width: 160 }}
                 />
-                <IconButton onClick={handleSearch} size="small" sx={{ p: 0.5 }}>
+                <IconButton onClick={handleSearch} size="small">
                   <SearchIcon fontSize="small" />
                 </IconButton>
               </Box>
@@ -316,7 +272,7 @@ const Header = () => {
                 to="/track-order"
                 sx={{
                   fontFamily: "'Yeseva One', serif",
-                  fontSize: '1rem',
+                  fontSize: '0.9rem',
                   textTransform: 'none',
                   px: 2,
                   py: '4px',

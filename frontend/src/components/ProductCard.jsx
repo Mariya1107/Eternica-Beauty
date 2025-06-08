@@ -54,8 +54,8 @@ const ProductCard = ({ product, onAddToCart }) => {
           <Button
             variant="outlined"
             sx={{
-              color: '#6f1904',           // text color changed here
-              borderColor: '#6f1904',     // border color changed here
+              color: '#6f1904',
+              borderColor: '#6f1904',
               '&:hover': {
                 backgroundColor: '#6f1904',
                 color: 'white',
