@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
 import ProductList from '../components/ProductList';
-
+import { BASE_URL } from '../config';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -11,12 +11,12 @@ const SearchPage = ({ cartItems, setCartItems }) => {
   const [products, setProducts] = useState([]);
   const query = useQuery();
   const searchTerm = query.get('q');
-  const backendUrl = 'http://127.0.0.1:8000';
+  
 
   useEffect(() => {
     if (!searchTerm) return;
 
-    fetch(`${backendUrl}/api/products/?search=${encodeURIComponent(searchTerm)}`)
+   fetch(`${BASE_URL}/api/products/?search=${encodeURIComponent(searchTerm)}`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error('Error fetching search results:', err));

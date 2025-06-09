@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box } from '@mui/material';
 import ProductList from '../components/ProductList';
 import { useNavigate } from 'react-router-dom';
-
+import { BASE_URL } from '../config';
 const GalleryPage = ({ cartItems, setCartItems }) => {
   const [products, setProducts] = useState([]);
-  const backendUrl = 'http://127.0.0.1:8000';
+ 
   const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
@@ -23,7 +23,7 @@ const GalleryPage = ({ cartItems, setCartItems }) => {
   };
 
   useEffect(() => {
-    fetch(`${backendUrl}/api/products/`)
+   fetch(`${BASE_URL}/api/products/`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error('Error fetching products:', err));

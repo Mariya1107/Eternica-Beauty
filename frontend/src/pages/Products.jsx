@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Container, Typography, Box } from '@mui/material';
 import ProductList from '../components/ProductList';
-
+import { BASE_URL } from '../config';
 const formatCategoryForAPI = (cat) => {
   return cat
     .replace(/[-_]/g, ' ')
@@ -15,7 +15,7 @@ const Products = ({ cartItems, setCartItems }) => {
   const { category } = useParams();
   const location = useLocation();
   const [products, setProducts] = useState([]);
-  const backendUrl = 'http://127.0.0.1:8000';
+  
   const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
@@ -38,7 +38,7 @@ const Products = ({ cartItems, setCartItems }) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/products/?category=${encodedCategory}`);
+        const response = await fetch(`${BASE_URL}/api/products/?category=${encodedCategory}`);
         const data = await response.json();
 
         const query = new URLSearchParams(location.search);

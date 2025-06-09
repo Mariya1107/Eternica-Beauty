@@ -4,6 +4,7 @@ import axios from 'axios';
 import {
   Box, Typography, TextField, Button, Alert,
 } from '@mui/material';
+import { BASE_URL } from '../config';
 
 const AdminPage = () => {
   const [loginUsername, setLoginUsername] = useState('');
@@ -21,7 +22,7 @@ const AdminPage = () => {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/admin/login/', {
+       const response = await axios.post(`${BASE_URL}/api/admin/login/`, {
         username: loginUsername, // use username here
         password: loginPassword,
       });

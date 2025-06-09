@@ -8,7 +8,7 @@ import {
 import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 
-const BASE_URL = 'http://localhost:8000/api';
+import { BASE_URL } from '../config';
 
 const categories = [
   { value: 1, label: 'Essential Oils' },
@@ -19,7 +19,6 @@ const categories = [
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState(0);
-
   const [productData, setProductData] = useState({
     name: '',
     brand: '',
@@ -41,11 +40,11 @@ const AdminDashboard = () => {
   const [editLoading, setEditLoading] = useState(false);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/users/`)
+    axios.get(`${BASE_URL}/api/users/`)
       .then(res => setUsers(res.data))
       .catch(err => console.error(err));
 
-    axios.get(`${BASE_URL}/products/`)
+    axios.get(`${BASE_URL}/api/products/`)
       .then(res => setProducts(res.data))
       .catch(err => console.error(err));
   }, [refresh]);
@@ -84,7 +83,6 @@ const AdminDashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!productData.category) {
       alert('Please select a category.');
       return;
@@ -92,22 +90,13 @@ const AdminDashboard = () => {
 
     try {
       const formData = new FormData();
+      Object.entries(productData).forEach(([key, value]) => {
+        if (key === 'image' && !value) return;
+        formData.append(key, value);
+      });
 
-      formData.append('name', productData.name);
-      formData.append('brand', productData.brand);
-      formData.append('quantity', productData.quantity);
-      formData.append('advantages', productData.advantages || '');
-      formData.append('how_to_use', productData.how_to_use || '');
-      formData.append('price', productData.price);
-      formData.append('category', productData.category);
-      formData.append('in_stock', productData.in_stock);
-
-      if (productData.image) {
-        formData.append('image', productData.image);
-      }
-
-      await axios.post(`${BASE_URL}/products/`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      await axios.post(`${BASE_URL}/api/products/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
 
       alert('Product added successfully!');
@@ -137,7 +126,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure to delete this product?')) return;
     try {
-      await axios.delete(`${BASE_URL}/products/${id}/`);
+      await axios.delete(`${BASE_URL}/api/products/${id}/`);
       setRefresh(prev => !prev);
     } catch (err) {
       console.error(err);
@@ -181,21 +170,12 @@ const AdminDashboard = () => {
 
     try {
       const formData = new FormData();
+      Object.entries(editProductData).forEach(([key, value]) => {
+        if (key === 'image' && !value) return;
+        formData.append(key, value);
+      });
 
-      formData.append('name', editProductData.name);
-      formData.append('brand', editProductData.brand);
-      formData.append('quantity', editProductData.quantity);
-      formData.append('advantages', editProductData.advantages || '');
-      formData.append('how_to_use', editProductData.how_to_use || '');
-      formData.append('price', editProductData.price);
-      formData.append('category', editProductData.category);
-      formData.append('in_stock', editProductData.in_stock);
-
-      if (editProductData.image) {
-        formData.append('image', editProductData.image);
-      }
-
-      await axios.patch(`${BASE_URL}/products/${editProduct.id}/`, formData, {
+      await axios.patch(`${BASE_URL}/api/products/${editProduct.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -326,7 +306,7 @@ const AdminDashboard = () => {
             {products.length === 0 && <Typography variant="body1" sx={{ mx: 2 }}>No products available.</Typography>}
 
             {products.map(product => (
-              <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <Grid gridColumn="span 5" key={product.id}>
                 <Paper elevation={3} sx={{ p: 2, borderRadius: 3 }}>
                   <Box
                     component="img"
@@ -398,14 +378,15 @@ const AdminDashboard = () => {
                     Selected file: {editProductData.image.name}
                   </Typography>
                 )}
-                {(!editProductData.image || typeof editProductData.image === 'string') && (
-                  <Box
-                    component="img"
-                    src={editProduct.image}
-                    alt={editProduct.name}
-                    sx={{ width: '100%', maxHeight: 200, objectFit: 'contain', borderRadius: 2 }}
-                  />
-                )}
+                {editProduct && (!editProductData.image || typeof editProductData.image === 'string') && (
+  <Box
+    component="img"
+    src={editProduct.image}
+    alt={editProduct.name}
+    sx={{ width: '100%', maxHeight: 200, objectFit: 'contain', borderRadius: 2 }}
+  />
+)}
+
               </Box>
 
               <Box sx={{ mb: 2 }}>

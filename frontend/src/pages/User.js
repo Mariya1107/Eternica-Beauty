@@ -8,7 +8,7 @@ import {
   Tabs,
   Tab,
 } from '@mui/material';
-
+import { BASE_URL } from '../config';
 const User = () => {
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ const User = () => {
     e.preventDefault();
     setLoginError('');
     try {
-      const res = await fetch('http://localhost:8000/api/login/', {
+      const res = await fetch(`${BASE_URL}/api/login/`,  {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: loginEmail, password: loginPassword }),
@@ -69,7 +69,7 @@ const User = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:8000/api/register/', {
+     const res = await fetch(`${BASE_URL}/api/register/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -11,14 +11,12 @@ import {
   Divider,
   Stack,
 } from '@mui/material';
-
+import { BASE_URL } from '../config';
 const ProductDetail = ({ onAddToCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const backendUrl = 'http://127.0.0.1:8000';
-
   useEffect(() => {
-    fetch(`${backendUrl}/api/products/${id}/`)
+    fetch(`${BASE_URL}/api/products/${id}/`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch((err) => console.error('Error fetching product:', err));
