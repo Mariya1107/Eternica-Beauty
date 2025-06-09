@@ -21,6 +21,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+import { BASE_URL } from '../config'; // <-- import your backend base URL here
+
 const TopHeader = () => (
   <AppBar
     position="fixed"
@@ -71,7 +73,9 @@ const Header = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const backendUrl = 'http://127.0.0.1:8000';
+
+  // Example: get token from localStorage if you use one
+  const token = localStorage.getItem('authToken'); // change if your token key is different
 
   const categories = [
     { key: 'essential', label: 'Essential Oils' },
@@ -83,11 +87,20 @@ const Header = () => {
   const fetchCategoryItems = async (categoryKey) => {
     setLoading(true);
     try {
-      const res = await fetch(`${backendUrl}/api/products/?category=${categoryKey}`);
+      const res = await fetch(`${BASE_URL}/api/products/?category=${categoryKey}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
       const data = await res.json();
       setCategoriesData((prev) => ({ ...prev, [categoryKey]: data }));
     } catch (err) {
       console.error('Fetch error:', err);
+      setCategoriesData((prev) => ({ ...prev, [categoryKey]: [] }));
     }
     setLoading(false);
   };

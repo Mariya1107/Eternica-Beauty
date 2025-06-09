@@ -36,10 +36,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/products/:category"
-          element={<Products cartItems={cartItems} setCartItems={setCartItems} />}
-        />
+     <Route path="/products/:category" element={
+  <Products cartItems={cartItems} setCartItems={setCartItems} />
+} />
         <Route path="/admin" element={<AdminPage />} />
         <Route
           path="/product/:id"
