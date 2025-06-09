@@ -1,3 +1,4 @@
+import dj_database_url
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -8,7 +9,7 @@ SECRET_KEY = 'django-insecure-o+vdt&r+tvb(ehv*ox^(qkw9q7wy)@a6^vvr@!02(o7c8c8c*^
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,6 +81,10 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
