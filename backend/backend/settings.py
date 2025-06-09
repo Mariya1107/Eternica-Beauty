@@ -12,7 +12,8 @@ SECRET_KEY = 'g7+_ywd+ug576n#idxkqpe1h_ajc@+5rwr@ye8w$tar-ydoshf'
 DEBUG = True
 
 # Allow all hosts during development
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['eternica-beauty-backend.onrender.com', 'localhost', '127.0.0.1']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
