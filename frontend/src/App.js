@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import SearchPage from './pages/SearchPage';
 import GalleryPage from './pages/GalleryPage';
 import AdminPage from './pages/AdminPage';
+import AdminDashboard from './pages/AdminDashboard';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function App() {
           path="/product/:id"
           element={<ProductDetail onAddToCart={handleAddToCart} />}
         />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user" element={<User />} />
         <Route
           path="/cart"

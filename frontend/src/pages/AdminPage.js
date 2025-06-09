@@ -1,25 +1,40 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Alert,
+  Box, Typography, TextField, Button, Alert,
 } from '@mui/material';
 
 const AdminPage = () => {
-  const [loginEmail, setLoginEmail] = useState('');
+  const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (!loginEmail || !loginPassword) {
+
+    if (!loginUsername || !loginPassword) {
       setError('Please fill in all login fields.');
       return;
     }
-    console.log('Logging in:', { loginEmail, loginPassword });
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/admin/login/', {
+        username: loginUsername, // use username here
+        password: loginPassword,
+      });
+
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+      axios.defaults.headers.common.Authorization = `Bearer ${response.data.access}`;
+
+      navigate('/admin-dashboard');
+    } catch (err) {
+      console.error('Admin login error:', err.response ? err.response.data : err.message);
+      setError('Invalid login credentials or not an admin.');
+    }
   };
 
   return (
@@ -65,12 +80,12 @@ const AdminPage = () => {
 
         <Box component="form" noValidate autoComplete="off" onSubmit={handleLoginSubmit}>
           <TextField
-            label="Admin Email"
+            label="Admin Username"
             fullWidth
             margin="normal"
             variant="outlined"
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
+            value={loginUsername}
+            onChange={(e) => setLoginUsername(e.target.value)}
             InputLabelProps={{ style: { color: '#8f2e08' } }}
             sx={{
               '& .MuiOutlinedInput-root': {

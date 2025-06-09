@@ -73,10 +73,10 @@ const User = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: regEmail,
+          username: regEmail,           // or regName if you want username to be name
           email: regEmail,
           password: regPassword,
-          first_name: regName,
+          password2: regConfirmPassword,  // <-- Added confirm password field
         }),
       });
       if (res.ok) {
@@ -136,14 +136,14 @@ const User = () => {
               transition: 'none',
               '&:hover': {
                 color: '#8f2e08',
-                backgroundColor: 'transparent', // no hover bg color
+                backgroundColor: 'transparent',
               },
               '&.Mui-selected': {
                 color: '#6f1904',
-                backgroundColor: 'transparent', // no selected bg color
+                backgroundColor: 'transparent',
               },
               '&.Mui-focusVisible': {
-                backgroundColor: 'transparent', // no focus bg color
+                backgroundColor: 'transparent',
               },
             },
           }}
@@ -228,8 +228,8 @@ const User = () => {
               sx={{
                 mt: 2,
                 backgroundColor: '#6f1904',
-                '&:hover': { backgroundColor: '#6f1904' }, // no color change on hover
-                boxShadow: 'none', // remove shadow on click
+                '&:hover': { backgroundColor: '#6f1904' },
+                boxShadow: 'none',
                 fontFamily: "'Yeseva One', serif",
                 fontWeight: 'bold',
               }}
@@ -373,7 +373,7 @@ const User = () => {
               sx={{
                 mt: 2,
                 backgroundColor: '#6f1904',
-                '&:hover': { backgroundColor: '#6f1904' }, // no hover color change
+                '&:hover': { backgroundColor: '#6f1904' },
                 boxShadow: 'none',
                 fontFamily: "'Yeseva One', serif",
                 fontWeight: 'bold',
