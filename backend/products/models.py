@@ -12,6 +12,8 @@ class Product(models.Model):
     brand = models.CharField(max_length=100)
     quantity = models.CharField(max_length=50)
     advantages = models.TextField()
+    safety_information = models.TextField(blank=True, null=True) # <-- Added
+    ingredients = models.TextField(blank=True, null=True)
     how_to_use = models.TextField()
     image = models.ImageField(upload_to='products/')
     price = models.DecimalField(max_digits=10, decimal_places=2)
