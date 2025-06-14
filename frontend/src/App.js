@@ -40,10 +40,9 @@ function App() {
   <Products cartItems={cartItems} setCartItems={setCartItems} />
 } />
         <Route path="/admin" element={<AdminPage />} />
-        <Route
-          path="/product/:id"
-          element={<ProductDetail onAddToCart={handleAddToCart} />}
-        />
+        <Route path="/products/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
+
+
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user" element={<User />} />
         <Route

@@ -16,6 +16,7 @@ const ProductDetail = ({ onAddToCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   useEffect(() => {
+    console.log("Fetching:", `${BASE_URL}/api/products/${id}/`);
     fetch(`${BASE_URL}/api/products/${id}/`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
@@ -109,6 +110,16 @@ const ProductDetail = ({ onAddToCart }) => {
                   {product.advantages}
                 </Typography>
 
+                <Typography variant="body1" whiteSpace="pre-line" sx={{ mt: 2 }} color="black">
+                  <strong>Safety Information</strong>
+                  {'\n'}
+                  {product.safety_information}
+                </Typography>
+                <Typography variant="body1" whiteSpace="pre-line" sx={{ mt: 2 }} color="black">
+                  <strong>Ingredients</strong>
+                  {'\n'}
+                  {product.ingredients}
+                </Typography>
                 <Typography variant="body1" whiteSpace="pre-line" sx={{ mt: 2 }} color="black">
                   <strong>How to Use:</strong>
                   {'\n'}

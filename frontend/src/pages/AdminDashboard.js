@@ -24,6 +24,8 @@ const AdminDashboard = () => {
     brand: '',
     quantity: '',
     advantages: '',
+    safety_information: '',
+    ingredients: '',
     how_to_use: '',
     price: '',
     category: '',
@@ -56,6 +58,8 @@ const AdminDashboard = () => {
       brand: '',
       quantity: '',
       advantages: '',
+      safety_information: '',
+      ingredients: '',
       how_to_use: '',
       price: '',
       category: '',
@@ -106,6 +110,8 @@ const AdminDashboard = () => {
         brand: '',
         quantity: '',
         advantages: '',
+        safety_information: '',
+        ingredients: '',
         how_to_use: '',
         price: '',
         category: '',
@@ -141,6 +147,8 @@ const AdminDashboard = () => {
       brand: product.brand,
       quantity: product.quantity,
       advantages: product.advantages,
+      safety_information: product.safety_information,
+      ingredients: product.ingredients,
       how_to_use: product.how_to_use,
       price: product.price,
       category: product.category,
@@ -251,6 +259,8 @@ const AdminDashboard = () => {
             <TextField fullWidth margin="normal" name="brand" label="Brand" required value={productData.brand} onChange={handleChange} />
             <TextField fullWidth margin="normal" name="quantity" label="Quantity" required value={productData.quantity} onChange={handleChange} />
             <TextField fullWidth margin="normal" name="advantages" label="Advantages" value={productData.advantages} onChange={handleChange} multiline rows={2} />
+             <TextField fullWidth margin="normal" name="safety_information" label="Safety Information" value={productData.safety_information} onChange={handleChange} multiline rows={2} />
+             <TextField fullWidth margin="normal" name="ingredients" label="Ingredients" value={productData.ingredients} onChange={handleChange} multiline rows={2} />
             <TextField fullWidth margin="normal" name="how_to_use" label="How to Use" value={productData.how_to_use} onChange={handleChange} multiline rows={2} />
             <TextField fullWidth margin="normal" name="price" label="Price" type="number" required value={productData.price} onChange={handleChange} />
             <TextField select fullWidth margin="normal" name="category" label="Category" required value={productData.category} onChange={handleChange}>
@@ -360,6 +370,28 @@ const AdminDashboard = () => {
               <TextField fullWidth margin="normal" label="Brand" name="brand" value={editProductData.brand} onChange={handleEditChange} required />
               <TextField fullWidth margin="normal" label="Quantity" name="quantity" value={editProductData.quantity} onChange={handleEditChange} required />
               <TextField fullWidth margin="normal" label="Advantages" name="advantages" value={editProductData.advantages} onChange={handleEditChange} multiline rows={2} />
+              <TextField
+  fullWidth
+  margin="normal"
+  label="Safety Information"
+  name="safety_information"
+  value={editProductData.safety_information || ''}
+  onChange={handleEditChange}
+  multiline
+  rows={2}
+/>
+
+             <TextField
+  fullWidth
+  margin="normal"
+  label="Ingredients"
+  name="ingredients"
+  value={editProductData.ingredients || ''}
+  onChange={handleEditChange}
+  multiline
+  rows={2}
+/>
+
               <TextField fullWidth margin="normal" label="How to Use" name="how_to_use" value={editProductData.how_to_use} onChange={handleEditChange} multiline rows={2} />
               <TextField fullWidth margin="normal" label="Price" name="price" type="number" value={editProductData.price} onChange={handleEditChange} required />
               <TextField select fullWidth margin="normal" label="Category" name="category" value={editProductData.category} onChange={handleEditChange} required>
