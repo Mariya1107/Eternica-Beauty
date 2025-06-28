@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Container,
-  Grid,
-  Typography,
-  Button,
   Box,
+  Button,
   CircularProgress,
-  Paper,
-  Divider,
+  Grid,
+  MenuItem,
+  Select,
   Stack,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
 } from '@mui/material';
 import ProductCard from '../components/ProductCard'; 
 import { BASE_URL } from '../config';
