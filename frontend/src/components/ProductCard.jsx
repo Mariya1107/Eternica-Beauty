@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, Stack, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+
 const ProductCard = ({ product, onAddToCart }) => {
   const navigate = useNavigate();
 
@@ -13,10 +14,12 @@ const ProductCard = ({ product, onAddToCart }) => {
     <Card
       sx={{
         maxWidth: 300,
-        transition: 'transform 0.3s ease',
+        backgroundColor: '#e0e0e0', 
+        transition: 'transform 0.3s ease, background-color 0.3s ease',
         cursor: 'pointer',
         '&:hover': {
           transform: 'scale(1.05)',
+          backgroundColor: '#d6d6d6', 
           boxShadow: 6,
         },
       }}
@@ -32,7 +35,7 @@ const ProductCard = ({ product, onAddToCart }) => {
       <CardContent>
         <Typography variant="h6" gutterBottom>{product.name}</Typography>
         <Typography variant="body2" sx={{ mb: 1 }}>{product.description}</Typography>
-        
+
         {/* Price and stock inline */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mr: 1 }}>
@@ -40,9 +43,9 @@ const ProductCard = ({ product, onAddToCart }) => {
           </Typography>
           <Typography
             variant="body2"
-            sx={{ 
-              color: product.in_stock ? 'green' : 'red', 
-              fontWeight: 'bold' 
+            sx={{
+              color: product.in_stock ? 'green' : 'red',
+              fontWeight: 'bold'
             }}
           >
             {product.in_stock ? 'In Stock' : 'Out of Stock'}
@@ -54,12 +57,12 @@ const ProductCard = ({ product, onAddToCart }) => {
           <Button
             variant="outlined"
             sx={{
-              color: '#6f1904',
-              borderColor: '#6f1904',
+              color: '#000',
+              borderColor: '#000',
               '&:hover': {
-                backgroundColor: '#6f1904',
+                backgroundColor: '#000',
                 color: 'white',
-                borderColor: '#6f1904',
+                borderColor: '#000',
               },
             }}
             onClick={handleMoreDetails}
@@ -70,9 +73,9 @@ const ProductCard = ({ product, onAddToCart }) => {
           <Button
             variant="contained"
             sx={{
-              backgroundColor: '#6f1904',
+              backgroundColor: '#000',
               '&:hover': {
-                backgroundColor: '#4e1203',
+                backgroundColor: '#1a1a1a',
               },
             }}
             onClick={() => onAddToCart(product)}
