@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://eternica-beauty-backend.onrender.com';
+const API_BASE_URL = "https://eternica-beauty-1.onrender.com/api"; 
