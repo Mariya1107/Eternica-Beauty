@@ -35,7 +35,7 @@ const Header = () => {
       elevation={0}
       sx={{
         backgroundColor: '#ffffff',
-        height: '55px',
+        height: '70px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -47,7 +47,7 @@ const Header = () => {
           width: '100%',
           maxWidth: '1200px',
           mx: 'auto',
-          height: '55px',
+          height: '70px',
           display: 'flex',
           justifyContent: 'space-between',
           padding: '0 !important',
@@ -57,9 +57,10 @@ const Header = () => {
         <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', ml: -14 }}>
           <Box
             component="img"
-            src="/assets/ETERNICA BEAUTY LOGO.pdf"
+           src="/assets/ETERNICA BEAUTY LOGO-1.png"
             alt="Eternica Logo"
-            sx={{ width: '198.56px', height: '55px', objectFit: 'contain' }}
+            sx={{  width: '250px',   // Increased from ~198px
+      height: '70px', objectFit: 'contain' }}
           />
         </Box>
 
