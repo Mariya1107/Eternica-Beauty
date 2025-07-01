@@ -13,7 +13,12 @@ SECRET_KEY = 'g7+_ywd+ug576n#idxkqpe1h_ajc@+5rwr@ye8w$tar-ydoshf'
 DEBUG = True
 
 # Allow all hosts during development
-ALLOWED_HOSTS = ['eternica-beauty-backend.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'eternica-beauty-1.onrender.com',
+    'eternica-beauty-backend.onrender.com',  # keep the old one too, if needed
+    'localhost',
+    '127.0.0.1'
+]
 
 
 INSTALLED_APPS = [
