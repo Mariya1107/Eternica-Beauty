@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <Box
   sx={{
-    backgroundColor: '#FAEDAA',
+    backgroundColor: '#FFF',
     color: 'black',
     height: '500px', // 👈 SET FIXED HEIGHT
     display: 'flex',
@@ -162,65 +162,66 @@ const Footer = () => {
 </Box>
 
 
+       
         {/* Center: Quick Links */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Typography
-            sx={{
-              fontSize: '18px',
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              mb: 0,
-              width: '129.33px',
-              height: '35.72px',
-              textAlign: 'center',
-            }}
-          >
-            Quick Links
-          </Typography>
-          {[
-            { label: 'Essential Oils', category: 'essential' },
-            { label: 'Fragrance Oils', category: 'fragrance' },
-            { label: 'Carrier Oils and Base Oils', category: 'carrier' },
-          ].map((item) => (
-            <Typography
-              key={item.category}
-              onClick={() => handleNavigation(item.category)}
-              sx={{
-                
-                fontSize: '14px',
-                cursor: 'pointer',
-                mb: 1,
-              }}
-            >
-              {item.label}
-            </Typography>
-          ))}
-        </Box>
+<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3 }}>
+  <Typography
+    sx={{
+      fontSize: '18px',
+      fontFamily: 'Poppins',
+      fontWeight: 600,
+      mb: 1.5,
+      width: '129.33px',
+      height: '35.72px',
+      textAlign: 'center',
+    }}
+  >
+    Quick Links
+  </Typography>
+  {[
+    { label: 'Essential Oils', category: 'essential' },
+    { label: 'Fragrance Oils', category: 'fragrance' },
+    { label: 'Carrier Oils and Base Oils', category: 'carrier' },
+  ].map((item) => (
+    <Typography
+      key={item.category}
+      onClick={() => handleNavigation(item.category)}
+      sx={{
+        fontSize: '14px',
+        cursor: 'pointer',
+        mb: 1.5,
+      }}
+    >
+      {item.label}
+    </Typography>
+  ))}
+</Box>
 
-        {/* Right: Contact Info */}
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography
-            sx={{
-              fontSize: '18px',
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              mb: 0,
-              width: '129.33px',
-              height: '35.72px',
-            }}
-          >
-            Contact Info
-          </Typography>
-          <Typography sx={{ fontSize: '14px',  mb: 1 }}>
-            Eternica Beauty - Store 7,
-          </Typography>
-          <Typography sx={{ fontSize: '14px',  mb: 1 }}>
-            Plot 15 - M - 17 - Abu Dhabi
-          </Typography>
-          <Typography sx={{ fontSize: '14px'}}>
-            United Arab Emirates
-          </Typography>
-        </Box>
+{/* Right: Contact Info */}
+<Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
+  <Typography
+    sx={{
+      fontSize: '18px',
+      fontFamily: 'Poppins',
+      fontWeight: 600,
+      mb: 1.5,
+      width: '129.33px',
+      height: '35.72px',
+    }}
+  >
+    Contact Info
+  </Typography>
+  <Typography sx={{ fontSize: '14px', mb: 1.5 }}>
+    Eternica Beauty - Store 7,
+  </Typography>
+  <Typography sx={{ fontSize: '14px', mb: 1.5 }}>
+    Plot 15 - M - 17 - Abu Dhabi
+  </Typography>
+  <Typography sx={{ fontSize: '14px' }}>
+    United Arab Emirates
+  </Typography>
+</Box>
+
       </Box>
     </Box>
   );

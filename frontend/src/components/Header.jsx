@@ -10,6 +10,7 @@ const categories = [
   { label: 'Essential Oils', path: '/products/essential' },
   { label: 'Carrier Oils and Base Oils', path: '/products/carrier' },
   { label: 'Fragrance Oils', path: '/products/fragrance' },
+  { label: 'Gallery', path: '/gallery' },
 ];
 
 const Header = () => {
@@ -56,7 +57,7 @@ const Header = () => {
         <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', ml: -14 }}>
           <Box
             component="img"
-            src="/assets/ETERNICA INVOICE LOGO 1.png"
+            src="/assets/ETERNICA BEAUTY LOGO.pdf"
             alt="Eternica Logo"
             sx={{ width: '198.56px', height: '55px', objectFit: 'contain' }}
           />

@@ -17,7 +17,7 @@ const Home = () => {
         }}
       >
         <img
-          src="/assets/eternica_banner 1.png"
+          src="/assets/eternica_banner.png"
           alt="Eternica Beauty Banner"
           style={{
             width: '100%',
@@ -492,7 +492,118 @@ We specialize in delivering high-quality, naturally sourced oils that meet the e
     ))}
   </Box>
 </Box>
-
+{/* Latest Reviews Section */}
+      <Box
+        sx={{
+          width: '100%',
+          height: '372px',
+          backgroundColor: '#FAEDAA',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          py: 4,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            fontSize: '28px',
+            fontWeight: 600,
+            color: '#141414',
+            mb: 4,
+            fontFamily: '"Poppins", sans-serif',
+          }}
+        >
+          Latest Reviews
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 12,
+            justifyContent: 'center',
+            width: '100%',
+            px: 4,
+          }}
+        >
+          {[1, 2, 3].map((_, idx) => (
+            <Box
+              key={idx}
+              sx={{
+                width: '325.33px',
+                height: '217px',
+                backgroundColor: '#fff',
+                borderRadius: 2,
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                padding: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Box sx={{ display: 'flex', gap: 4, mb: 1 }}>
+                {[...Array(1)].map((_, i) => (
+                  <img
+                    key={i}
+                    src="/assets/Rating.png"
+                    alt="star"
+                    style={{ width: '100px', height: '20px' }}
+                  />
+                ))}
+              </Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 600,
+                  fontSize: '16px',
+                  fontFamily: '"Poppins", sans-serif',
+                  mb: 1,
+                  color: '#141414',
+                }}
+              >
+                Amazing Product!
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: '14px',
+                  fontFamily: '"Poppins", sans-serif',
+                  color: '#555',
+                  mb: 2,
+                }}
+              >
+                I’ve been using this oil for a week and the results are fantastic. Highly recommended!
+              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <img
+                  src="/assets/Avatar.png"
+                  alt="Reviewer"
+                  style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+                />
+                <Box>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: '14px',
+                      fontFamily: '"Poppins", sans-serif',
+                      color: '#141414',
+                    }}
+                  >
+                    Maria Thomas
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: '12px',
+                      fontFamily: '"Poppins", sans-serif',
+                      color: '#777',
+                    }}
+                  >
+                    June 30, 2025
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 };
