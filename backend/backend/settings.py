@@ -2,7 +2,8 @@ import dj_database_url
 import os
 from pathlib import Path
 from datetime import timedelta
-
+import cloudinary
+import cloudinary_storage
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -119,12 +120,11 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 # ✅ Cloudinary Settings
-import os
+
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': 'dqshl3hb8',
+    'API_KEY': '639733551367735',
+    'API_SECRET': 'xZGagj85ITGgaOJFusp3Ju7PXkY',
 }
