@@ -57,7 +57,7 @@ const Header = () => {
         <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', ml: -14 }}>
           <Box
             component="img"
-           src="/assets/ETERNICA BEAUTY LOGO-1.png"
+           src="/assets/ETERNICA INVOICE LOGO 1.png"
             alt="Eternica Logo"
             sx={{  width: '250px',   // Increased from ~198px
       height: '70px', objectFit: 'contain' }}
